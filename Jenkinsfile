@@ -23,7 +23,7 @@ pipeline {
                     sh 'git config user.name "Jenkins"'
                     sh 'git add .'
                     sh 'git commit -m "Updated statefile"'
-                    sh 'git push'
+                    sh 'git push -u origin main'
                 }
             }
         }

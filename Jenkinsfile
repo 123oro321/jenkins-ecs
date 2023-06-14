@@ -20,7 +20,7 @@ pipeline {
                 }
                 dir('terraform-state') {
                     sh 'git config user.email "jenkins"@jenkins.jenkins'
-                    sh 'git config user.name "Jenkins'
+                    sh 'git config user.name "Jenkins"'
                     sh 'git commit -am "Updated statefile"'
                     sh 'git push'
                 }

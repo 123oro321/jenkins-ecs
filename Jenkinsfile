@@ -22,7 +22,7 @@ pipeline {
                     sh 'git config user.email "jenkins"@jenkins.jenkins'
                     sh 'git config user.name "Jenkins"'
                     sh 'git add .'
-                    sshagent(['state-ssh']) {
+                    sshagent([params.state_repo_credentials]) {
                         sh 'git commit -m "Updated statefile"'
                         sh 'git push -u origin main'
                     }

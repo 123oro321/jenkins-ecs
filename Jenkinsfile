@@ -17,7 +17,7 @@ pipeline {
                 sh 'terraform init'
                 withCredentials([usernamePassword(credentialsId: params.aws_iam, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     //sh 'terraform apply -auto-approve -var region="${region}" -var profile="${profile}" -state=terraform-state/terraform.tfstate'
-                    sh 'terraform destroy -auto-approve -state=terraform-state/terraform.tfstate'
+                    sh 'terraform destroy -auto-approve -var region="${region}" -var profile="${profile}" -state=terraform-state/terraform.tfstate'
                 }
                 dir('terraform-state') {
                     sh 'git config user.email "jenkins"@jenkins.jenkins'

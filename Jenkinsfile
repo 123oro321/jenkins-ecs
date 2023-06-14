@@ -16,7 +16,9 @@ pipeline {
                     git branch: 'main', changelog: false, credentialsId: params.state_repo_credentials, poll: false, url: params.state_repo // Private repo with statefile
                 }
                 sh 'terraform init'
-                sh 'terraform apply -auto-approve -var region="${region}" -var profile="${profile}" -state=terraform-state/terraform.tfstate'
+                withCredentials([usernamePassword(credentialsId: params.aws_iam, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh 'terraform apply -auto-approve -var region="${region}" -var profile="${profile}" -state=terraform-state/terraform.tfstate'
+                }
                 dir('terraform-state') {
                     sh 'git add .'
                     sh 'git commit -m "Updated statefile"'

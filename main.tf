@@ -11,13 +11,7 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
-provider "aws" {
-  region                   = var.region
-  shared_config_files      = ["./.aws/config"]
-  shared_credentials_files = ["./.aws/credentials"]
-  profile                  = var.profile
-}
-
+provider "aws" {}
 resource "aws_instance" "app_server" {
   ami           = "ami-09db9d79b41ec058e"
   instance_type = "t2.micro"

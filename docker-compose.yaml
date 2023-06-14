@@ -1,0 +1,34 @@
+volumes:
+  data:
+    name: jenkins-data
+  cert:
+    name: jenkins-docker-certs
+services:
+  jenkins-docker:
+    privileged: true
+    restart: unless-stopped
+    networks:
+      jenkins:
+       aliases:
+         - "docker"
+    volumes:
+      - cert:/certs/client
+    image: docker:dind
+  jenkins-blueocean:
+    restart: on-failure
+    networks:
+      - jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - data:/var/jenkins_home
+      - cert:/certs/client
+      - ./jenkins.yaml:/etc/jenkins.yaml
+    depends_on:
+      - jenkins-docker
+    build: .
+networks:
+  jenkins:
+    driver: bridge
+  

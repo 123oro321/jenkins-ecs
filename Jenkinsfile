@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Create infrastracture') {
             steps{
+                sh 'sh-keyscan github.com >> ~/.ssh/known_hosts'
                 dir('terraform-state') {
                     git branch: 'main', changelog: false, credentialsId: params.state_repo_credentials, poll: false, url: params.state_repo // Private repo with statefile
                 }

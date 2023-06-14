@@ -9,7 +9,6 @@ pipeline {
     stages {
         stage('Create infrastracture') {
             steps{
-                sh 'ls -l -a .aws'
                 sh 'mkdir ~/.ssh'
                 sh 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
                 dir('terraform-state') {

@@ -24,7 +24,7 @@ pipeline {
                     sh 'git add .'
                     withCredentials([sshUserPrivateKey(credentialsId: params.state_repo_credentials, keyFileVariable: 'key')]) {
                         sh 'git commit -m "Updated statefile"'
-                        sh 'GIT_SSH_COMMAND = "ssh -i $key"'
+                        sh 'GIT_SSH_COMMAND="ssh -i $key"'
                         sh 'git push -u origin main'
                     }
                 }

@@ -10,7 +10,7 @@ pipeline {
         stage('Create infrastracture') {
             steps{
                 dir('terraform-state') {
-                    git branch: 'main', changelog: false, credentialsId: prarms.state_repo_credentials, poll: false, url: params.state_repo // Private repo with statefile
+                    git branch: 'main', changelog: false, credentialsId: params.state_repo_credentials, poll: false, url: params.state_repo // Private repo with statefile
                 }
                 sh 'terraform init'
                 sh 'terraform apply -auto-approve -var region="${params.region}" -var profile="${params.profile}" -state=terraform-state/terraform.tfstate'

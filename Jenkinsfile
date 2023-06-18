@@ -1,3 +1,5 @@
+@Library('github.com/releaseworks/jenkinslib') _
+
 pipeline {
     agent {
         label 'jenkins-agent'
@@ -31,7 +33,7 @@ pipeline {
             steps{
                 unstash 'ecr'
                 withAwsCli(credentialsId: params.aws_iam, defaultRegion: params.AWS_REGION) {
-                    sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin `cat ecr.txt`'
+                    AWS('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin `cat ecr.txt`')
                 }
                 sh 'docker build . -t `cat ecr.txt`:latest'
                 sh 'docker push `cat ecr.txt`:latest'

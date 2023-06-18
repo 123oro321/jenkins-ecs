@@ -32,8 +32,8 @@ pipeline {
             }
             steps{
                 unstash 'ecr'
-                withAwsCli(credentialsId: params.aws_iam, defaultRegion: params.AWS_REGION) {
-                    AWS('aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin `cat ecr.txt`')
+                withAWS(credentials: params.aws_iam, region: params.AWS_REGION) {
+                    AWS('ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin `cat ecr.txt`')
                 }
                 sh 'docker build . -t `cat ecr.txt`:latest'
                 sh 'docker push `cat ecr.txt`:latest'

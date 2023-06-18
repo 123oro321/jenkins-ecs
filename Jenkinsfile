@@ -22,7 +22,7 @@ pipeline {
                     sh 'terraform init -backend-config="bucket=${bucket}" -backend-config="key=${key}"'
                     sh 'terraform apply -auto-approve -var vpc_id=${vpc_id}'
                     script {
-                        ECR = sh(script='terraform output -raw repository_url',returnStdout=true).trim()
+                        ECR = sh(script: 'terraform output -raw repository_url',returnStdout: true).trim()
                     }
                 }
             }

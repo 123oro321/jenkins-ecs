@@ -16,7 +16,7 @@ pipeline {
         stage('Create infrastracture') {
             steps{
                 withCredentials([usernamePassword(credentialsId: params.aws_iam, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-                    sh 'terraform init -backend-config="bucket=${params.bucket}" -backend-config="key=${params.key}"'
+                    sh 'terraform init -backend-config="bucket=${bucket}" -backend-config="key=${key}"'
                     sh 'terraform apply -auto-approve'
                     //sh 'terraform destroy -auto-approve'
                 }

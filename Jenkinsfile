@@ -19,7 +19,9 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: params.aws_iam, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh 'terraform init -backend-config="bucket=${bucket}" -backend-config="key=${key}"'
                     sh 'terraform apply -auto-approve -var vpc_id=${vpc_id}'
-                    sh 'export ecr=$(terraform output -raw repository_url)'
+                    script {
+                        ECR = sh('terraform output -raw repository_url').trim()
+                    }
                 }
             }
         }
@@ -29,7 +31,7 @@ pipeline {
             }
             steps{
                 sh 'docker build .'
-                sh 'echo $ecr'
+                sh 'echo $ECR'
             }
         }
     }

@@ -6,17 +6,13 @@ pipeline {
         terraform 'terraform-linux'
         git 'Default'
     }
+    parameters {
+        string 'AWS_REGION'
+        credentials credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', name: 'aws_iam', required: true
+        string 'key'
+        string 'bucket'
+    }
     stages {
-        stage('Setup parameters') {
-            steps  {
-                parameters {
-                    string 'AWS_REGION'
-                    credentials credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', name: 'aws_iam', required: true
-                    string 'key'
-                    string 'bucket'
-                }
-            }
-        }
         stage('Create infrastracture') {
             steps{
                 withCredentials([usernamePassword(credentialsId: params.aws_iam, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {

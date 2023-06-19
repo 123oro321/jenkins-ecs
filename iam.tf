@@ -66,7 +66,7 @@ resource "aws_iam_policy" "write_jenkins_logs" {
           "logs:DescribeLogStreams"
         ]
         Effect   = "Allow"
-        Resource = join("", [aws_cloudwatch_log_group.jenkins_log_group.arn, ":*"])
+        Resource = "${aws_cloudwatch_log_group.jenkins_log_group.arn}:*"
       }
     ]
   })

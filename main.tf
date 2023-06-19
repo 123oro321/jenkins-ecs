@@ -58,7 +58,7 @@ resource "aws_ecs_task_definition" "jenkins_master_task" {
   container_definitions = jsonencode([
     {
       name      = "jenkins-server"
-      image     = "jenkins/jenkins:2.401.1"
+      image     = "${aws_ecr_repository.jenkins_ecr.repository_url}:latest"
       essential = true
       portMappings = [
         {

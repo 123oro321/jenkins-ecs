@@ -11,34 +11,34 @@ jenkins:
   #         properties: 
   #           - mailer:
   #               emailAddress: "examle@mail.org"
-  clouds:
-    - docker:
-        name: "docker"
-        disabled:
-          disabledByChoice: false
-        dockerApi:
-          dockerHost:
-            uri: "tcp://docker:2376"
-            credentialsId: "docker"
-        templates:
-          - labelString: "jenkins-agent"
-            dockerTemplateBase:
-              image: "jenkins/agent"
-              cpuPeriod: 0
-              cpuQuota: 0
-            remoteFs: "/home/jenkins/agent"
-            connector: "attach"
-            disabled:
-              disabledByChoice: false
+  # clouds:
+  #   - docker:
+  #       name: "docker"
+  #       disabled:
+  #         disabledByChoice: false
+  #       dockerApi:
+  #         dockerHost:
+  #           uri: "tcp://docker:2376"
+  #           credentialsId: "docker"
+  #       templates:
+  #         - labelString: "jenkins-agent"
+  #           dockerTemplateBase:
+  #             image: "jenkins/agent"
+  #             cpuPeriod: 0
+  #             cpuQuota: 0
+  #           remoteFs: "/home/jenkins/agent"
+  #           connector: "attach"
+  #           disabled:
+  #             disabledByChoice: false
 
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-          - x509ClientCert:
-              id: "docker"
-              scope: "SYSTEM"
-              description: "Dind certificate"
-              clientKeySecret: "${file:/certs/client/key.pem}"
-              clientCertificate: "${file:/certs/client/cert.pem}"
-              serverCaCertificate: "${file:/certs/client/ca.pem}"
+# credentials:
+#   system:
+#     domainCredentials:
+#       - credentials:
+#           - x509ClientCert:
+#               id: "docker"
+#               scope: "SYSTEM"
+#               description: "Dind certificate"
+#               clientKeySecret: "${file:/certs/client/key.pem}"
+#               clientCertificate: "${file:/certs/client/cert.pem}"
+#               serverCaCertificate: "${file:/certs/client/ca.pem}"

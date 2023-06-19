@@ -28,22 +28,18 @@ resource "aws_iam_policy" "getEcrImages" {
     Statement = [
       {
         Action = [
-          "ecr:DescribeImageScanFindings",
-          "ecr:GetLifecyclePolicyPreview",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:DescribeImageReplicationStatus",
-          "ecr:ListTagsForResource",
-          "ecr:ListImages",
-          "ecr:BatchGetRepositoryScanningConfiguration",
           "ecr:BatchGetImage",
-          "ecr:DescribeImages",
-          "ecr:DescribeRepositories",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetRepositoryPolicy",
-          "ecr:GetLifecyclePolicy"
+          "ecr:GetDownloadUrlForLayer"
         ]
         Effect   = "Allow"
         Resource = aws_ecr_repository.jenkins_ecr.arn
+      },
+      {
+        Action = [
+          "ecr:GetAuthorizationToken"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
       }
     ]
   })
